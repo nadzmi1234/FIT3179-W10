@@ -1,0 +1,123 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "A ranged dot plot that uses 'layer' to convey changing life expectancy for the five most populous countries (between 1955 and 2000).",
+  "hconcat": [
+    {
+      "title": "Price Distribution Per Award",
+      "width": 475,
+      "height": 190,
+      "data": {
+        "url": "https://raw.githubusercontent.com/nadzmi1234/3179/main/Assignment2/data/michelin_cleaned.csv"
+      },
+      "layer": [
+        {
+          "params": [
+            {
+              "name": "award_highlight",
+              "select": {"type": "point", "fields": ["Award"]},
+              "bind": "legend"
+            }
+          ],
+          "transform": [
+            {"density": "MinPriceUSD", "groupby": ["Award"], "extent": [0,500]}
+          ],
+          "mark": "area",
+          "encoding": {
+            "x": {
+              "field": "value",
+              "type": "quantitative",
+              "title": "Price (USD)"
+            },
+            "opacity": {
+              "condition": {"param": "award_highlight", "value": 0.6},
+              "value": 0.1
+            },
+            "y": {
+              "field": "density",
+              "type": "quantitative",
+              "title": "Density"
+            },
+            "color": {
+              "field": "Award",
+              "type": "nominal",
+              "legend": {
+                "direction": "horizontal",
+                "offset": -569,
+                "labelOffset": 3,
+                "fillColor": "white",
+                "strokeColor": "whitesmoke",
+                "title": null,
+                "labelFontSize": 14
+              }
+            }
+          }
+        },
+        {
+          "mark": "rule",
+          "encoding": {
+            "x": {"aggregate": "mean", "field": "MinPriceUSD"},
+            "color": {"field": "Award"},
+            "size": {"value": 3},
+            "opacity": {
+              "condition": {"param": "award_highlight", "value": 1},
+              "value": 0.1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "title": "Cheapest Food Across Country",
+      "width": 250,
+      "height": 200,
+      "data": {
+        "url": "https://raw.githubusercontent.com/nadzmi1234/3179/main/Assignment2/data/country_price.csv"
+      },
+      "transform": [
+        {
+          "filter": "award_highlight_Award_legend == null || datum.Award == award_highlight_Award_legend"
+        }
+      ],
+      "encoding": {
+        "x": {"field": "Price", "type": "quantitative", "title": "Price"},
+        "y": {
+          "field": "Country",
+          "type": "nominal",
+          "title": "Country",
+          "sort": {"field": "Price", "order": "ascending"},
+          "axis": {
+            "offset": 5,
+            "ticks": false,
+            "minExtent": 70,
+            "domain": false
+          }
+        }
+      },
+      "layer": [
+        {
+          "mark": "line",
+          "encoding": {
+            "detail": {"field": "Country", "type": "nominal"},
+            "color": {"value": "#db646f"}
+          }
+        },
+        {
+          "mark": {"type": "point", "filled": true},
+          "encoding": {
+            "x": {"aggregate": "min", "field": "Price"},
+            "size": {"value": 100},
+            "opacity": {"value": 1}
+          }
+        },
+        {
+          "mark": {"type": "point", "filled": true},
+          "encoding": {
+            "x": {"aggregate": "max", "field": "Price"},
+            "size": {"value": 100},
+            "opacity": {"value": 1}
+          }
+        }
+      ]
+    }
+  ]
+}

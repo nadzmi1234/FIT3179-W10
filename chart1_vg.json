@@ -1,0 +1,84 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 890,
+  "height": 500,
+  "params": [
+    {
+      "name": "zoom_level",
+      "value": 2000,
+      "bind": {
+        "input": "range",
+        "min": 1000,
+        "max": 3000,
+        "step": 100,
+        "name": "Zoom: "
+      }
+    },
+    {
+      "name": "center_to",
+      "value": [2.03, 46.81],
+      "bind": {
+        "input": "select",
+        "options": [[2.03, 46.81], [12.59, 43.16], [10.01, 51.04],
+        [-3.29, 40.57], [-1.72, 52.18], [4.77, 50.56], [8.02, 46.95]],
+        "labels": ["France", "Italy", "Germany", "Spain", "United Kingdom", "Belgium", "Switzerland"],
+        "name": "Map Centre: "
+      }
+    }
+  ],
+  "projection": {"type": "equirectangular", "scale": {"expr": "zoom_level"}, "center": {"expr": "center_to"}},
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/nadzmi1234/3179/main/Assignment2/data/ne_10m.json",
+        "format": {"type": "topojson", "feature": "ne_10m_admin_0_countries"}
+      },
+      "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/nadzmi1234/3179/main/Assignment2/data/michelin_cleaned.csv"
+      },
+      "params": [
+        {
+          "name": "award_highlight",
+          "select": {"type": "point", "fields": ["Award"]},
+          "bind": "legend"
+        }
+      ],
+      "mark": {"type": "circle", "tooltip": {"content": "data"}, "size": 20},
+      "encoding": {
+        "longitude": {"field": "Longitude", "type": "quantitative"},
+        "latitude": {"field": "Latitude", "type": "quantitative"},
+        "color": {
+          "field": "Award",
+          "type": "nominal",
+          "scale": {
+            "domain": ["1 Star", "2 Stars", "3 Stars"],
+            "range": ["#453fb4", "#faaf40", "#ee4036"]
+          }
+        },
+        "opacity": {
+          "condition": {"param": "award_highlight", "value": 0.5},
+          "value": 0.1
+        },
+        "tooltip": [
+          {"field": "Name", "type": "nominal", "title": "Restaurant Name"},
+          {"field": "Country", "type": "nominal"},
+          {"field": "Address", "type": "nominal", "title": "Address"},
+          {"field": "Cuisine", "type": "nominal", "title": "Cuisine"},
+          {"field": "Award", "type": "nominal", "title": "Award"}
+        ]
+      }
+    }
+  ],
+  "config": {
+    "legend": {
+      "orient": "top-right",
+      "fillColor": "white",
+      "offset": 40,
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    }
+  }
+}
