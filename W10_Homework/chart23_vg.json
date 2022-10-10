@@ -1,0 +1,105 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Chart 2",
+    "params": [
+      {
+        "name": "Award",
+        "value": "All",
+        "bind": {
+          "input": "select",
+          "options": ["All", "1 Star", "2 Stars", "3 Stars"],
+          "labels": ["All", "1 Star", "2 Star", "3 Star"],
+          "name": "Award Selected:"
+        }
+      }
+    ],
+    "hconcat": [
+      {
+        "title": "Award received by Country",
+        "height" : 240,
+        "width" : 300,
+        "data": {
+          "url": "https://raw.githubusercontent.com/nadzmi1234/3179/main/Assignment2/data/country_award.csv"
+        },
+        "mark": {
+          "type": "bar",
+          "cornerRadiusTopLeft": 3,
+          "cornerRadiusTopRight": 3
+        },
+        "encoding": {
+          "x": {
+            "aggregate": "sum",
+            "field": "value",
+            "title": "Number of Restaurant"
+          },
+          "y": {"field": "Country", "sort": "-x"},
+          "color": {
+            "field": "Award",
+            "scale": {
+              "domain": ["1 Star", "2 Stars", "3 Stars"],
+              "range": ["#453fb4", "#faaf40", "#ee4036"]
+            }
+          },
+          "tooltip": [
+            {"field": "value", "type": "quantitative", "title": "Total"},
+            {"field": "Country", "type": "ordinal"},
+            {"field": "Award", "type": "ordinal"}
+          ]
+        },
+        "transform": [{"filter": "Award == 'All' || datum.Award == Award"}]
+      },
+      {
+        "title": "Distribution of Cuisine by Award",
+        "height" : 240,
+        "width" :  300,
+        "data": {
+          "url": "https://raw.githubusercontent.com/nadzmi1234/3179/main/Assignment2/data/cuisine_award.csv"
+        },
+        "transform": [{"filter": "datum.Award == Award"}],
+        "encoding": {
+          "theta": {"field": "value", "type": "quantitative", "stack": true},
+          "color": {
+            "field": "Cuisine",
+            "type": "nominal",
+            "scale": {
+              "domain": [
+                "Classic Cuisine",
+                "Contemporary",
+                "Classic French",
+                "Creative",
+                "Modern Cuisine",
+                "Modern French",
+                "Other"
+              ],
+              "range": [
+                "#4c78a8",
+                "#f58518",
+                "#8cd17d",
+                "#e45756",
+                "#72b7b2",
+                "#54a24b",
+                "#a4aa9f"
+              ]
+            }
+          },
+          "order": {"field": "rank", "type": "ordinal", "sort": "ascending"},
+          "tooltip": [
+            {"field": "Cuisine", "type": "nominal", "title": "Cuisine"},
+            {"field": "percentage", "type": "ordinal", "title": "Percentage"},
+            {"field": "value", "type": "quantitative", "title": "Total"}
+          ]
+        },
+        "layer": [
+          {"mark": {"type": "arc", "outerRadius": 90, "radius2": 60}},
+          {
+            "mark": {"type": "text", "radius": 105},
+            "encoding": {"text": {"field": "percentage", "type": "nominal"},
+            "color": {
+              "scale": "black"
+            }}
+          }
+        ]
+      }
+    ],
+    "resolve": {"scale": {"color": "independent"}}
+  }

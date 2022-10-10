@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>Title</title>
+
+    <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+
+    <!-- Import pure.css -->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css"
+        integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Import CSS layout -->
+    <link rel="stylesheet" href="layout.css">
+
+    <!-- Import Javascript -->
+    <script src="charts.js"></script>
+</head>
+
+<body>
+    <div class="page">
+
+        <!-- Header -->
+        <div class="pure-g">
+            <div class="pure-u-1-1">
+                <h1 class="title">Main Title/Main Header</h1>
+                <p><b>Lorem Ipsum</b> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+                    leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
+                    with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+                    publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            </div>
+        </div>
+        <!-- end Header -->
+
+        <!-- First Chart -->
+        <div class="pure-g">
+            <!-- <div class="pure-u-1-1">
+                <h3>This is A Map of Europe</h3>
+                <p>ABDEFGHIJKLMNOPQRTSTUVWXYZ</p>
+            </div> -->
+
+            <div class="pure-u-1-1">
+                <div class="chart" id="map"></div>
+            </div>
+        </div>
+
+        <!-- end First Chart -->
+
+        <!-- Second/Third Chart -->
+        <div class="pure-g">
+            <div class="pure-u-1-1">
+                <h2 class="title">Header 2</h2>
+                <p><b>Lorem Ipsum</b> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+                    leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
+                    with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+                    publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            </div>
+
+            <div class="pure-u-1-1">
+                <div class="chart" id="chart23"></div>
+            </div>
+        </div>
+        <!-- end Second Chart -->
+
+        <!-- Fourth/Fifth Chart -->
+        <div class="pure-g">
+            <div class="pure-u-1-1">
+                <h2 class="title">Header 2</h2>
+                <p><b>Lorem Ipsum</b> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+                    leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
+                    with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+                    publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            </div>
+
+            <div class="pure-u-1-1">
+                <div class="chart" id="chart45"></div>
+            </div>
+        </div>
+        <!-- end Third Chart -->
+    </div>
+</body>
+
+</html>
